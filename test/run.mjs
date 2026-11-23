@@ -1,5 +1,5 @@
 // End-to-end test: real Linkgard service (DEV test checkout) + the MCP server over stdio.
-// Run: node linkgard/mcp/test/run.mjs
+// Run: node mcp/test/run.mjs
 import { spawn } from "node:child_process";
 import fs from "node:fs";
 import os from "node:os";
