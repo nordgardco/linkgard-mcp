@@ -1,33 +1,46 @@
 {
   "name": "linkgard",
-  "version": "0.1.0",
+  "version": "0.1.1",
+  "mcpName": "io.github.nordgardco/linkgard",
   "description": "Move secrets between people and your project without putting them in chat: Linkgard MCP server and CLI (end-to-end encrypted, hosted in the Netherlands).",
   "homepage": "https://linkgard.nl/mcp",
   "author": "Nordgard (https://linkgard.nl)",
   "license": "MIT",
   "type": "module",
   "bin": {
-    "linkgard": "bin/linkgard.mjs"
+    "linkgard": "cli/linkgard.mjs"
   },
   "files": [
-    "bin",
+    "cli",
     "lib",
-    "README.md"
+    "hooks/guard-secrets.mjs",
+    "README.md",
+    "LICENSE"
   ],
   "engines": {
     "node": ">=20"
   },
   "scripts": {
-    "sync": "node scripts/sync-shared.mjs",
-    "test": "node scripts/sync-shared.mjs --check && node test/run.mjs"
+    "test": "node hooks/test-guard.mjs"
   },
   "keywords": [
-    "mcp",
-    "secrets",
+    "api-keys",
+    "claude",
+    "claude-code",
+    "cursor",
+    "dotenv",
     "e2e",
     "encryption",
-    "claude",
     "env",
-    "api-keys"
-  ]
+    "mcp",
+    "model-context-protocol",
+    "secrets"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nordgardco/linkgard-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nordgardco/linkgard-mcp/issues"
+  }
 }

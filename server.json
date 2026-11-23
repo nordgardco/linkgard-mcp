@@ -1,0 +1,21 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.nordgardco/linkgard",
+  "title": "Linkgard",
+  "description": "Request and hand over secrets via end-to-end encrypted pages, without putting them in chat.",
+  "websiteUrl": "https://linkgard.nl/mcp",
+  "repository": { "url": "https://github.com/nordgardco/linkgard-mcp", "source": "github" },
+  "version": "0.1.1",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "linkgard",
+      "version": "0.1.1",
+      "transport": { "type": "stdio" },
+      "packageArguments": [{ "type": "positional", "value": "mcp" }],
+      "environmentVariables": [
+        { "name": "LINKGARD_BUNDLE", "description": "Your credits link from https://linkgard.nl/bundel", "isRequired": true, "isSecret": true, "format": "string" }
+      ]
+    }
+  ]
+}

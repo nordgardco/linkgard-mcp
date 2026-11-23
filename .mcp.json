@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "linkgard": {
+      "command": "npx",
+      "args": ["-y", "linkgard@latest", "mcp"],
+      "env": { "LINKGARD_BUNDLE": "${user_config.bundle_link}" }
+    }
+  }
+}

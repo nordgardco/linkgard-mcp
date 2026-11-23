@@ -1,0 +1,19 @@
+{
+  "name": "linkgard",
+  "version": "0.1.1",
+  "description": "Keep secrets out of the chat: blocks pasted API keys, and lets Claude request or hand over secrets through end-to-end encrypted Linkgard pages (hosted in the Netherlands).",
+  "author": { "name": "Nordgard", "url": "https://linkgard.nl" },
+  "homepage": "https://linkgard.nl/mcp",
+  "repository": "https://github.com/nordgardco/linkgard-mcp",
+  "license": "MIT",
+  "keywords": ["secrets", "security", "api-keys", "env", "mcp", "encryption"],
+  "userConfig": {
+    "bundle_link": {
+      "type": "string",
+      "title": "Linkgard credits link",
+      "description": "Your credits link from https://linkgard.nl/bundel (looks like https://linkgard.nl/bundel#c=…). Needed for the MCP tools; the paste guard works without it.",
+      "sensitive": true,
+      "required": false
+    }
+  }
+}

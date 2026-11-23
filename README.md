@@ -5,7 +5,7 @@ Move secrets between people and your project **without putting them in chat**. W
 - **End-to-end encrypted** in the local process (WebCrypto, AES-256-GCM). The same scheme as linkgard.nl, which can't read anything.
 - **Zero npm dependencies.** Node ≥ 20.
 - **Local stdio server.** Secrets never leave your machine unencrypted.
-- **Paid with Linkgard credits** (one per page or request) from a bundle at https://linkgard.nl/bundel.
+- **Paid with Linkgard credits** (one per page or request) from https://linkgard.nl/bundel. No account, no subscription.
 
 ## Tools
 
@@ -18,29 +18,39 @@ Move secrets between people and your project **without putting them in chat**. W
 
 ## Setup
 
-1. Buy a bundle at https://linkgard.nl/bundel and copy your **credits link** (it's also emailed to you).
-2. Add the server to your client.
+1. Buy credits at https://linkgard.nl/bundel (from 5 credits, volume discount from 10) and copy your **credits link**. It's also emailed to you.
+2. Add Linkgard to your client.
 
-**Claude Code**
-```bash
-claude mcp add linkgard -e LINKGARD_BUNDLE='https://linkgard.nl/bundel#c=YOUR_KEY' -- node /path/to/linkgard/mcp/bin/linkgard.mjs mcp
+**Claude Code: plugin (recommended)**. Adds the MCP tools, the skill, and a **paste guard** that stops a prompt containing an API key or private key before it reaches the model:
 ```
-Once the package is on npm: `-- npx -y linkgard mcp`.
+/plugin marketplace add nordgardco/linkgard-mcp
+/plugin install linkgard@linkgard
+```
+Claude Code asks for your credits link once and stores it in your keychain.
 
-**Claude Desktop / Cursor** (`claude_desktop_config.json` / `.cursor/mcp.json`):
+**Claude Code: MCP only**
+```bash
+claude mcp add linkgard -e LINKGARD_BUNDLE='https://linkgard.nl/bundel#c=YOUR_KEY' -- npx -y linkgard mcp
+```
+
+**Claude Desktop / Cursor / Windsurf / VS Code** (`claude_desktop_config.json`, `.cursor/mcp.json`, …):
 ```json
 {
   "mcpServers": {
     "linkgard": {
-      "command": "node",
-      "args": ["/path/to/linkgard/mcp/bin/linkgard.mjs", "mcp"],
+      "command": "npx",
+      "args": ["-y", "linkgard", "mcp"],
       "env": { "LINKGARD_BUNDLE": "https://linkgard.nl/bundel#c=YOUR_KEY" }
     }
   }
 }
 ```
 
-3. Optional: install the Claude skill from `../skill/linkgard-secrets/`, which teaches the agent to never ask for secrets in chat. Copy it to `~/.claude/skills/` or to the project's `.claude/skills/`.
+3. Without the plugin you can still install the skill: copy [`skills/linkgard-secrets/`](skills/linkgard-secrets/SKILL.md) to `~/.claude/skills/`. It teaches the agent to never ask for secrets in chat.
+
+## Paste guard
+
+The plugin's `UserPromptSubmit` hook ([`hooks/guard-secrets.mjs`](hooks/guard-secrets.mjs)) recognises Stripe, Anthropic, OpenAI, GitHub, GitLab, AWS, Google, Slack, npm, Hugging Face and similar keys, private keys, database URLs with a password and `*_SECRET=…` assignments. A matching prompt is not sent; you get a hint to use a Linkgard request instead. It runs locally, needs no credits and sends nothing anywhere. Add `#allow-secret` to a message to send it anyway (e.g. a revoked test key).
 
 ## CLI
 
@@ -71,7 +81,4 @@ An agent can be tricked by text it reads (prompt injection), so the tools are de
 
 ## Development
 
-```bash
-npm run sync   # copy crypto.js / files.js from ../service/web/js (single source of truth)
-npm test       # checks they're in sync, then runs the end-to-end test against a local service
-```
+This repository is published from the Linkgard monorepo. `lib/shared/` is copied from the website's browser code so both encrypt the same way. `npm test` runs the paste guard tests.

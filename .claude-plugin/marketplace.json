@@ -1,0 +1,13 @@
+{
+  "name": "linkgard",
+  "owner": { "name": "Nordgard", "url": "https://linkgard.nl" },
+  "metadata": { "description": "Linkgard: move secrets without putting them in chat." },
+  "plugins": [
+    {
+      "name": "linkgard",
+      "source": "./",
+      "description": "Blocks pasted secrets and adds the Linkgard MCP tools + skill for requesting and handing over secrets via encrypted pages.",
+      "category": "security"
+    }
+  ]
+}
