@@ -1,0 +1,15 @@
+{
+  "name": "linkgard",
+  "version": "0.1.0",
+  "description": "Move secrets between people and your project without putting them in chat: Linkgard MCP server and CLI (end-to-end encrypted, hosted in the Netherlands).",
+  "type": "module",
+  "bin": { "linkgard": "bin/linkgard.mjs" },
+  "files": ["bin", "lib", "README.md"],
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "sync": "node scripts/sync-shared.mjs",
+    "test": "node scripts/sync-shared.mjs --check && node test/run.mjs"
+  },
+  "keywords": ["mcp", "secrets", "e2e", "encryption", "claude", "env", "api-keys"],
+  "license": "MIT"
+}
